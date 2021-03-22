@@ -1,0 +1,4 @@
+repository "GAMES202@ssl://yaorain@sh02-plasticscm.unity.cn:8787"
+  path "/"
+    smartbranch "/main/yyaoruijun" 
+     
