@@ -17,6 +17,9 @@ namespace MySRP
     {
         public static int _LightColor;
         public static int _LightDir;
+
+        public static int _PointLightColor;
+        public static int _PointLightPos;
     }
 
     public class GlobalShaderProperties
@@ -30,6 +33,8 @@ namespace MySRP
 
             PreLightBufer._LightColor = Shader.PropertyToID("_LightColor");
             PreLightBufer._LightDir = Shader.PropertyToID("_LightDir");
+            PreLightBufer._PointLightColor = Shader.PropertyToID("_PointLightColor");
+            PreLightBufer._PointLightPos = Shader.PropertyToID("_PointLightPos");
         }
 
         public static void SetPreFrameBuffer()
@@ -41,10 +46,15 @@ namespace MySRP
             Shader.SetGlobalVector(PreCameraBuffer._CameraPosition, camPos);
             Shader.SetGlobalMatrix(PreCameraBuffer._VP, vp);
         }
-        public static void SetPreLightBuffer()
+        public static void SetMainLight(Color color, Vector3 dir)
         {
-            Shader.SetGlobalColor(PreLightBufer._LightColor, new Color(1, 1, 1));
-            Shader.SetGlobalVector(PreLightBufer._LightDir, new Vector3(0, -1, -1));
+            Shader.SetGlobalColor(PreLightBufer._LightColor, color);
+            Shader.SetGlobalVector(PreLightBufer._LightDir, dir);
+        }
+        public static void SetPointLight(Color color, Vector3 position)
+        {
+            Shader.SetGlobalColor(PreLightBufer._PointLightColor, color);
+            Shader.SetGlobalVector(PreLightBufer._PointLightPos, position);
         }
     }
 }

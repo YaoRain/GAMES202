@@ -63,9 +63,9 @@
     <Compile Include="Assets/GAMES202SRP/Pipeline/Data/GlobalShaderProperties.cs" />
     <Compile Include="Assets/GAMES202SRP/Pipeline/Data/RenderData.cs" />
     <Compile Include="Assets/GAMES202SRP/Pipeline/RenderPass.cs" />
-    <Compile Include="Assets/GAMES202SRP/Pipeline/Data/Light.cs" />
-    <Compile Include="Assets/GAMES202SRP/Pipeline/Data/ParallelLight.cs" />
     <Compile Include="Assets/GAMES202SRP/Script/CameraControler.cs" />
+    <Compile Include="Assets/GAMES202SRP/Pipeline/Data/MainLight.cs" />
+    <Compile Include="Assets/GAMES202SRP/Pipeline/Data/PointLight.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/GAMES202SRP/Shaders/Blinn-Phong.shader" />

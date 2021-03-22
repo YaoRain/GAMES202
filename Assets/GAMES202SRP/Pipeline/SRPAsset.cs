@@ -8,8 +8,13 @@ namespace MySRP
     [CreateAssetMenu(menuName = "Rendering/MySRP")]
     public class SRPAsset : RenderPipelineAsset
     {
+        SRPAsset()
+        {
+            
+        }
         protected override RenderPipeline CreatePipeline()
         {
+            
             return new Pipeline(this);
         }
     }

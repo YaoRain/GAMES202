@@ -60,7 +60,7 @@ namespace MySRP
 
         public void Clear()
         {
-            _renderCmdBuf.ClearRenderTarget(true, true, Color.clear );
+            _renderCmdBuf.ClearRenderTarget(true, true, Color.clear);
             ExcuteBuffer(_renderCmdBuf);
         }
 
@@ -91,7 +91,11 @@ namespace MySRP
             var drawSetting = new DrawingSettings(new ShaderTagId("baseDraw"), sortSetting);
             var filterSetting = new FilteringSettings(RenderQueueRange.all);
 
-            GlobalShaderProperties.SetPreLightBuffer();
+            foreach(var visiableLight in renderData.cullResults.visibleLights)
+            {
+                MainLight.SetLightData(visiableLight);
+                PointLight.SetLightData(visiableLight);
+            }
 
             currentContext.DrawRenderers(renderData.cullResults, ref drawSetting, ref filterSetting);
 
