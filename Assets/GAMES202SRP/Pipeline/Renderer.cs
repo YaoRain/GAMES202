@@ -15,14 +15,23 @@ namespace MySRP
         RenderData renderData;
         List<RenderPass> passes;
 
+        ShadowPass shadowPass;
+        OpaquePass opaquePass;
+        SkyBoxPass skyboxPass;
+
         // TODO:添加add render pass的代码；
         public Renderer()
         {
             GlobalShaderProperties.GetShaderPropertyIDs();
-            if(_renderCmdBuf is null)
-            {
-                _renderCmdBuf = new CommandBuffer();
-            }
+            renderData.meshes = GameObject.FindObjectsOfType<MeshFilter>();
+            renderData.lights = GameObject.FindObjectsOfType<Light>();
+
+            shadowPass = new ShadowPass();
+            opaquePass = new OpaquePass();
+            skyboxPass = new SkyBoxPass();
+
+            _renderCmdBuf = new CommandBuffer();
+            _renderCmdBuf.name = "RenderDrawCommand";
         }
 
         public void UpdatePreFrameData()    
@@ -47,21 +56,16 @@ namespace MySRP
             UpdatePreFrameData();
             foreach(var pass in passes)
             {
-                pass.Excute(context, renderData);
+                pass.Excute(renderData);
             }
         }
 
         public void Setup(in ScriptableRenderContext context, Camera camera)
         {
             currentContext = context;
+            RenderPass.Setup(context);
             renderData.cameraData.camera = camera;
             currentContext.SetupCameraProperties(camera);
-        }
-
-        public void Clear()
-        {
-            _renderCmdBuf.ClearRenderTarget(true, true, Color.clear);
-            ExcuteBuffer(_renderCmdBuf);
         }
 
         public void SetupCullingParamete()
@@ -73,12 +77,6 @@ namespace MySRP
             }            
         }
 
-        private void ExcuteBuffer(CommandBuffer cmdBuf)
-        {
-            currentContext.ExecuteCommandBuffer(cmdBuf);
-            cmdBuf.Clear();
-        }
-
         public void SubmitRenderCommand()
         {
             currentContext.Submit();
@@ -86,21 +84,36 @@ namespace MySRP
 
         public void ExcutePasses()
         {
-            Camera camTmp = renderData.cameraData.camera;
-            var sortSetting = new SortingSettings(camTmp);
-            var drawSetting = new DrawingSettings(new ShaderTagId("baseDraw"), sortSetting);
-            var filterSetting = new FilteringSettings(RenderQueueRange.all);
+            SetLighProperties();
 
-            foreach(var visiableLight in renderData.cullResults.visibleLights)
+            shadowPass.Setup();
+            shadowPass.Excute(renderData);
+
+            opaquePass.Setup();
+            opaquePass.Excute(renderData);
+
+            skyboxPass.Setup();
+            skyboxPass.Excute(renderData);
+
+            shadowPass.Clear();
+
+        }
+
+        void SetLighProperties()
+        {
+            // TODO:后续实现手动裁剪
+            int mainLightIndex = 0;
+            int currentIndex = 0;
+            foreach (var visiableLight in renderData.cullResults.visibleLights)
             {
+                if (visiableLight.lightType == LightType.Directional)
+                {
+                    mainLightIndex = currentIndex;
+                }
                 MainLight.SetLightData(visiableLight);
                 PointLight.SetLightData(visiableLight);
+                currentIndex++;
             }
-
-            currentContext.DrawRenderers(renderData.cullResults, ref drawSetting, ref filterSetting);
-
-            currentContext.SetupCameraProperties(camTmp, false);
-            currentContext.DrawSkybox(camTmp);
-        }   
+        }
     }
 }

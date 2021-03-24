@@ -8,6 +8,8 @@ namespace MySRP
 {
     public struct RenderData
     {
+        public MeshFilter[] meshes;
+        public Light[] lights;
         public CullingResults cullResults;
         public CameraData cameraData;
         public LightData lightData;
@@ -35,7 +37,7 @@ namespace MySRP
 
     public class LightData
     {
-        public List<Light> lights;
+        public List<MainLight> lights;
     }
 
     public struct Attachments

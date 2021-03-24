@@ -22,6 +22,11 @@ namespace MySRP
         public static int _PointLightPos;
     }
 
+    static internal class ShadowBuffer
+    {
+        public static int _ShadowMap;
+    }
+
     public class GlobalShaderProperties
     {
         public static void GetShaderPropertyIDs()
@@ -35,6 +40,8 @@ namespace MySRP
             PreLightBufer._LightDir = Shader.PropertyToID("_LightDir");
             PreLightBufer._PointLightColor = Shader.PropertyToID("_PointLightColor");
             PreLightBufer._PointLightPos = Shader.PropertyToID("_PointLightPos");
+
+            ShadowBuffer._ShadowMap = Shader.PropertyToID("_ShadowMap");
         }
 
         public static void SetPreFrameBuffer()
@@ -56,5 +63,7 @@ namespace MySRP
             Shader.SetGlobalColor(PreLightBufer._PointLightColor, color);
             Shader.SetGlobalVector(PreLightBufer._PointLightPos, position);
         }
+
+
     }
 }

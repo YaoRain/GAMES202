@@ -22,7 +22,7 @@ namespace MySRP
                 currentRenderer = new Renderer();
             }
             // 如果使能了keyword，则需要Disable才能失效，去掉Enable没有用
-            //Shader.EnableKeyword("UseMainLight");
+            Shader.EnableKeyword("UseMainLight");
             //Shader.DisableKeyword("UseMainLight");
             Shader.EnableKeyword("UsePointLight");
         }
@@ -69,7 +69,6 @@ namespace MySRP
                 currentRenderer = new Renderer();
             }
             currentRenderer.Setup(context, cam);
-            currentRenderer.Clear();
             currentRenderer.SetupCullingParamete();
             currentRenderer.ExcutePasses();
             currentRenderer.SubmitRenderCommand();  

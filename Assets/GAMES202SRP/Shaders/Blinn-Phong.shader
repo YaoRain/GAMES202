@@ -8,6 +8,22 @@ Shader "MySRP/Blinn-Phong"
     {
         Tags { "RenderType"="Opaque" }
         LOD 100
+/*
+        Pass 
+        {
+            Tags {"LightMode" = "ShadowCaster"}
+
+            ColorMask 0
+
+            HLSLPROGRAM
+            #pragma target 3.5
+            #pragma multi_compile_instancing
+            #pragma vertex ShadowCasterPassVertex
+            #pragma fragment ShadowCasterPassFragment
+            #include "ShadowCasterPass.hlsl"
+            ENDHLSL
+        }
+ */ 
         Pass
         {
             Name "Blinn-Phone Shading"
@@ -36,6 +52,8 @@ Shader "MySRP/Blinn-Phong"
             };
 
             sampler2D _MainTex;
+            sampler2D _ShadowMap;
+
             float3 _LightColor;
             float3 _LightDir;
             float3 _PointLightColor;
@@ -76,7 +94,7 @@ Shader "MySRP/Blinn-Phong"
                 float3 pointSpecular = _PointLightColor * pow(max(dot(viewDir,pointLightRefDir),0),35.0);          
                 pointSpecularColor = col * float4(pointSpecular,1);
 #endif
-                col = col * float4(1,1,1,1)*0.2  + specularColor + pointSpecularColor;
+                col = col * float4(1,1,1,1)*0.5  + specularColor + pointSpecularColor;
 
                 return col;
             }
