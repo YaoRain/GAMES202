@@ -51,12 +51,6 @@ namespace MySRP
             context.Submit();
         }
 
-        void ExcuteBuffer(in CommandBuffer cmdBuffer)
-        {
-            currentContext.ExecuteCommandBuffer(cmdBuffer);
-            cmdBuffer.Clear();
-        }
-
         void SortCameras(ref Camera[] cams)
         {
 

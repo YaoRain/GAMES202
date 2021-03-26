@@ -5,6 +5,8 @@ namespace MySRP
 {
     public class PointLight
     {
+        public static Light shadowPointLight;
+
         [Range(0, 10)]
         public Vector3 position;
         public Color finalColor;
@@ -17,6 +19,10 @@ namespace MySRP
                 //Debug.Log("get point light");
                 //Shader.EnableKeyword("UsePointLight");
                 Light light = visibleLight.light;
+
+                // TODO:暂时只有一个点光源用来投射阴影
+                shadowPointLight = light;
+
                 if(pointLight is null)
                 {
                     pointLight = new PointLight();

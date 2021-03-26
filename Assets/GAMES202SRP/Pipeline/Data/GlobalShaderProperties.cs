@@ -51,7 +51,7 @@ namespace MySRP
         public static void SetPreCameraBuffer(Vector3 camPos, Matrix4x4 vp)
         {
             Shader.SetGlobalVector(PreCameraBuffer._CameraPosition, camPos);
-            Shader.SetGlobalMatrix(PreCameraBuffer._VP, vp);
+            // Shader.SetGlobalMatrix(PreCameraBuffer._VP, vp);
         }
         public static void SetMainLight(Color color, Vector3 dir)
         {

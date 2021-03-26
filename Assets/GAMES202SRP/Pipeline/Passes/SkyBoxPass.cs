@@ -14,7 +14,7 @@ namespace MySRP
 
         public override void Setup()
         {
-            _SkyCmd.SetRenderTarget(BuiltinRenderTextureType.CameraTarget);
+            _SkyCmd.SetRenderTarget(BuiltinRenderTextureType.CameraTarget); 
             ExcuteBuffer(_SkyCmd);
         }
 

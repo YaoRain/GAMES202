@@ -94,8 +94,14 @@ Shader "MySRP/Blinn-Phong"
                 float3 pointSpecular = _PointLightColor * pow(max(dot(viewDir,pointLightRefDir),0),35.0);          
                 pointSpecularColor = col * float4(pointSpecular,1);
 #endif
-                col = col * float4(1,1,1,1)*0.5  + specularColor + pointSpecularColor;
 
+                float4 shadowLightSpacePos = mul(_VP, float4(i.worldPos,1));
+                float4 shadowNdc = shadowLightSpacePos / shadowLightSpacePos.w;
+                float2 shadowUV = float2((shadowLightSpacePos.x + 1)*0.5 ,(shadowLightSpacePos.y + 1)*0.5);
+                bool inShadow = shadowNdc.z < DecodeFloatRGBA(tex2D(_ShadowMap, shadowUV)); 
+
+                col = col * 0.5  + specularColor + pointSpecularColor;
+                col *= inShadow;
                 return col;
             }
             ENDHLSL
