@@ -10,8 +10,8 @@ Shader "MySRP/ShadowCast"
             Name "Shadow Map"
             Tags{"LightMode" = "ShadowCast"}
             ZWrite On
-            ZTest LEqual
-    
+            ZTest GEqual
+            // Cull Front
             HLSLPROGRAM
             #pragma target 5.0
             #pragma multi_compile UseShadow
@@ -36,27 +36,19 @@ Shader "MySRP/ShadowCast"
             float3 _PointLightPos;
  
             float4x4 _VP;
-            float4x4 _M;
-            float4x4 _MVP;
-            // float4x4 unity_ObjectToWorld;
+            float4x4 _ObjToWorldMatrix;
 
             FragShaderIn vert (VertShaderIn v)
             {
                 FragShaderIn o;
-                float4x4 mvp = mul(_VP, _M);
+                float4x4 mvp = mul(_VP, _ObjToWorldMatrix);
                 o.postion = mul(mvp, v.vertex);
-                o.postion.z = 1 - o.postion.z;
-                //o.postion = UnityObjectToClipPos(v.vertex);
                 return o;
             }
 
             float4 frag (FragShaderIn i) : SV_Target
             {
-                float depth = i.postion.z / i.postion.w;
-                depth = depth * 0.5 + 0.5;
-                depth = 1 - depth;
-                return depth;
-                //return 0;
+                return 0;
             }
             ENDHLSL
         }

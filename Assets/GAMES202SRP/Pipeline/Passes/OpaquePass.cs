@@ -24,6 +24,10 @@ namespace MySRP
             foreach (var mesh in renderData.meshes)
             {
                 Transform transTmp = mesh.transform;
+                Matrix4x4 mMat = transTmp.localToWorldMatrix;
+                mMat[10] *= -1;
+                mMat[14] *= -1;
+                _OpaqueCmd.SetGlobalMatrix(PreObjBuffer._ObjToWorldMatrix, mMat);
                 _OpaqueCmd.DrawMesh(mesh.mesh, transTmp.localToWorldMatrix, transTmp.GetComponent<MeshRenderer>().material, 0, 0);
             }
             ExcuteBuffer(_OpaqueCmd);

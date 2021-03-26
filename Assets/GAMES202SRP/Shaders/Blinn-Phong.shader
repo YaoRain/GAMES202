@@ -46,6 +46,7 @@ Shader "MySRP/Blinn-Phong"
             struct FragShaderIn
             {
                 float3 worldPos : TEXCOORD1;
+                float4 shadowClipPos : TEXCOORD2;
                 float2 uv : TEXCOORD0;
                 float3 normal : NORMAL;
                 float4 vertex : SV_POSITION;
@@ -61,14 +62,17 @@ Shader "MySRP/Blinn-Phong"
             float3 _EnvironmentColor;
             float4x4 _VP;
             float3 _CameraPosition;
-
-            // float4x4 unity_ObjectToWorld;
+            float4x4 _ObjToWorldMatrix;
 
             FragShaderIn vert (VertShaderIn v)
             {
                 FragShaderIn o;
-                //o.vertex = mul(_VP,mul(unity_ObjectToWorld, v.vertex));
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+                float4x4 mvp = mul(_VP, _ObjToWorldMatrix);
+                o.shadowClipPos = mul(mvp, v.vertex);
+
+
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.normal = UnityObjectToWorldNormal(v.normal);
                 o.uv = v.uv;
@@ -95,14 +99,17 @@ Shader "MySRP/Blinn-Phong"
                 pointSpecularColor = col * float4(pointSpecular,1);
 #endif
 
-                float4 shadowLightSpacePos = mul(_VP, float4(i.worldPos,1));
-                float4 shadowNdc = shadowLightSpacePos / shadowLightSpacePos.w;
-                float2 shadowUV = float2((shadowLightSpacePos.x + 1)*0.5 ,(shadowLightSpacePos.y + 1)*0.5);
-                bool inShadow = shadowNdc.z < DecodeFloatRGBA(tex2D(_ShadowMap, shadowUV)); 
+                //float4 shadowLightSpacePos = mul(_VP, float4(i.worldPos,1));
+                //float4 shadowNdc = shadowLightSpacePos / shadowLightSpacePos.w;
+                float4 shadowNdc = i.shadowClipPos / i.shadowClipPos.w;
+                float2 shadowUV = float2((shadowNdc.x + 1)*0.5 ,1 - (shadowNdc.y + 1)*0.5);
+                float shadowDepth = shadowNdc.z * 0.5 + 0.5;
+                bool inShadow = shadowNdc.z > tex2D(_ShadowMap, shadowUV) + 0.01; 
 
                 col = col * 0.5  + specularColor + pointSpecularColor;
-                col *= inShadow;
+                col *= !inShadow;
                 return col;
+                //return shadowNdc.z;
             }
             ENDHLSL
         }

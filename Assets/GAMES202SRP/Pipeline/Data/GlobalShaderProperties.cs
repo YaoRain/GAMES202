@@ -27,6 +27,11 @@ namespace MySRP
         public static int _ShadowMap;
     }
 
+    static internal class PreObjBuffer
+    {
+        public static int _ObjToWorldMatrix;
+    }
+
     public class GlobalShaderProperties
     {
         public static void GetShaderPropertyIDs()
@@ -42,6 +47,8 @@ namespace MySRP
             PreLightBufer._PointLightPos = Shader.PropertyToID("_PointLightPos");
 
             ShadowBuffer._ShadowMap = Shader.PropertyToID("_ShadowMap");
+
+            PreObjBuffer._ObjToWorldMatrix = Shader.PropertyToID("_ObjToWorldMatrix");
         }
 
         public static void SetPreFrameBuffer()
@@ -64,6 +71,10 @@ namespace MySRP
             Shader.SetGlobalVector(PreLightBufer._PointLightPos, position);
         }
 
+        public static void SetPreObjBuffer(Matrix4x4 obj2worldMat)
+        {
+            Shader.SetGlobalMatrix(PreObjBuffer._ObjToWorldMatrix, obj2worldMat);
+        }
 
     }
 }
