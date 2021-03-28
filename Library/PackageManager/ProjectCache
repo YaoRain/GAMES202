@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637516321940000000
-    m_Hash: 1843733976
+      ticks: 637525017920000000
+    m_Hash: 1347933091
   m_LockFileStatus:
     m_FilePath: /Users/yaoruijun/UnityProject/GAMES202/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637521044490000000
-    m_Hash: 3534471297
+      ticks: 637525017940000000
+    m_Hash: 3003189929
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
@@ -367,106 +367,6 @@ m_PackageAssets:
         type: git
         url: https://github.cds.internal.unity3d.com/unity/com.unity.ide.vscode.git
         revision: b5ec9b38109e52b1b26597d521e4df75e042ebb9
-        path: 
-    - packageId: com.unity.plasticscm-cn@1.1.6-preview
-      testable: 0
-      isDirectDependency: 1
-      version: 1.1.6-preview
-      source: 1
-      resolvedPath: /Users/yaoruijun/UnityProject/GAMES202/Library/PackageCache/com.unity.plasticscm-cn@1.1.6-preview
-      assetPath: Packages/com.unity.plasticscm-cn
-      name: com.unity.plasticscm-cn
-      displayName: Plastic SCM
-      author:
-        name: 
-        email: 
-        url: 
-      category: 
-      type: 
-      description: "The Plastic SCM package gives you the ability to use Plastic
-        SCM, a leading version control solution for content creators, directly in
-        Unity.\n\n\u2022 Checkin or undo pending changes.\n\u2022 Be notified of
-        incoming changes and update your workspace.\n\u2022 Create and switch branches.\n\u2022
-        Consult your project history. See the list of changesets and their associated
-        changes.\n\u2022 View file history and revert to a previous revision of a
-        file.\n\nA Plastic SCM subscription is required. Learn more about how you
-        can get started for free by visiting plasticscm.com.\n\nIf you wish to migrate
-        from Collaborate to Plastic SCM, please consult our migration guide: https://forum.unity.com/threads/faq-plastic-scm-joining-unity-collaborate-migration-guide.963285"
-      status: 4
-      errors: []
-      versions:
-        all:
-        - 0.0.1-preview
-        - 0.0.2-preview
-        - 1.0.0
-        - 1.0.1-preview
-        - 1.0.2-preview
-        - 1.0.3-preview
-        - 1.0.4-preview
-        - 1.0.5-preview
-        - 1.0.6-preview
-        - 1.0.7-preview
-        - 1.0.8-preview
-        - 1.0.9-preview
-        - 1.1.0-preview
-        - 1.1.1-preview
-        - 1.1.2-preview
-        - 1.1.3-preview
-        - 1.1.4-preview
-        - 1.1.5-preview
-        - 1.1.6-preview
-        - 1.1.7-preview
-        compatible:
-        - 0.0.1-preview
-        - 0.0.2-preview
-        - 1.0.0
-        - 1.0.1-preview
-        - 1.0.2-preview
-        - 1.0.3-preview
-        - 1.0.4-preview
-        - 1.0.5-preview
-        - 1.0.6-preview
-        - 1.0.7-preview
-        - 1.0.8-preview
-        - 1.0.9-preview
-        - 1.1.0-preview
-        - 1.1.1-preview
-        - 1.1.2-preview
-        - 1.1.3-preview
-        - 1.1.4-preview
-        - 1.1.5-preview
-        - 1.1.6-preview
-        - 1.1.7-preview
-        verified: 
-      dependencies: []
-      resolvedDependencies: []
-      keywords:
-      - plastic
-      - plasticscm
-      - collaborate
-      - teams
-      - team
-      - cloud
-      - backup
-      registry:
-        id: main
-        name: 
-        url: https://packages-v2.unity.cn
-        scopes: []
-        isDefault: 1
-        capabilities: 0
-      hasRegistry: 1
-      hideInEditor: 1
-      entitlements:
-        isAllowed: 1
-      isAssetStorePackage: 0
-      datePublishedTicks: 637505322550000000
-      documentationUrl: 
-      hasRepository: 1
-      repository:
-        type: git
-        url: git@github.cds.internal.unity3d.com:nairufan/com.unity.plasticscm-cn.git
-        revision: dff9c2cde71215276e34d08bd79a7288ee316c90
         path: 
     - packageId: com.unity.render-pipelines.core@10.3.2
       testable: 0

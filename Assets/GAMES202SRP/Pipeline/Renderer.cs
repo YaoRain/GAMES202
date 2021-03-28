@@ -15,7 +15,7 @@ namespace MySRP
         RenderData renderData;
         List<RenderPass> passes;
 
-        ShadowPass shadowPass;
+        static ShadowPass shadowPass;
         OpaquePass opaquePass;
         SkyBoxPass skyboxPass;
 

@@ -41,7 +41,7 @@ namespace MySRP
                 // TODO:传正确的MVP进去
                 Matrix4x4 _VP = cam.projectionMatrix * cam.worldToCameraMatrix;
                 GlobalShaderProperties.SetPreCameraBuffer(cam.transform.position, _VP);
-
+                
                 RenderSingleCamera(context, cam);
 
                 EndCameraRendering(context, cam);

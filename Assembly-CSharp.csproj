@@ -63,7 +63,6 @@
      <None Include="Assets\GAMES202SRP\Shaders\Blinn-Phong.shader" />
      <None Include="Assets\GAMES202SRP\Shaders\Test.shader" />
      <None Include="Assets\GAMES202SRP\Shaders\ShadowCast.shader" />
-     <None Include="Assets\GAMES202SRP\Shaders\Shadow.shader" />
  <Reference Include="UnityEngine">
  <HintPath>/Applications/Unity/Hub/Editor/2020.3.0f1c1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

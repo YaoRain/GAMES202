@@ -1,22 +1,22 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GAMES202SRP/Pipeline/Passes/ShadowPass.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/GAMES202SRP/Shaders/Blinn-Phong.shader">
     <Files>
-      <File FileName="Assets/GAMES202SRP/Pipeline/Data/GlobalShaderProperties.cs" Line="51" Column="76" />
+      <File FileName="Assets/GAMES202SRP/Pipeline/Data/GlobalShaderProperties.cs" Line="37" Column="28" />
       <File FileName="Assets/GAMES202SRP/Script/CameraControler.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Data/PointLight.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Pipeline.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Data/RenderData.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Renderer.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Passes/RenderPass.cs" />
-      <File FileName="Assets/GAMES202SRP/Pipeline/Passes/ShadowPass.cs" Line="30" Column="42" />
-      <File FileName="Assets/GAMES202SRP/Shaders/Shadow.shader" />
+      <File FileName="Assets/GAMES202SRP/Pipeline/Passes/ShadowPass.cs" Line="34" Column="25" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Passes/OpaquePass.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/PipelineSetting.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Passes/SkyBoxPass.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Data/MainLight.cs" />
-      <File FileName="Assets/GAMES202SRP/Shaders/Blinn-Phong.shader" Line="71" Column="1" />
+      <File FileName="Assets/GAMES202SRP/Shaders/Blinn-Phong.shader" Line="169" Column="1" />
+      <File FileName="Assets/GAMES202SRP/Shaders/Test.shader" />
       <File FileName="Assets/GAMES202SRP/Pipeline/SRPAsset.cs" Line="11" Column="16" NotebookId="1" />
-      <File FileName="Assets/GAMES202SRP/Shaders/ShadowCast.shader" Line="13" Column="20" NotebookId="1" />
+      <File FileName="Assets/GAMES202SRP/Shaders/ShadowCast.shader" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,11 +27,11 @@
                 <Node name="GAMES202SRP" expanded="True">
                   <Node name="Pipeline" expanded="True">
                     <Node name="Data" expanded="True" />
-                    <Node name="Passes" expanded="True">
-                      <Node name="ShadowPass.cs" selected="True" />
-                    </Node>
+                    <Node name="Passes" expanded="True" />
                   </Node>
-                  <Node name="Shaders" expanded="True" />
+                  <Node name="Shaders" expanded="True">
+                    <Node name="Blinn-Phong.shader" selected="True" />
+                  </Node>
                 </Node>
               </Node>
             </Node>
@@ -42,8 +42,11 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0f7b8d74-4c91-4e30-b6e6-36af6686ff2a" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/yaoruijun/UnityProject/GAMES202/Assets/GAMES202SRP/Pipeline/Passes/ShadowPass.cs" relfile="Assets/GAMES202SRP/Pipeline/Passes/ShadowPass.cs" line="36" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

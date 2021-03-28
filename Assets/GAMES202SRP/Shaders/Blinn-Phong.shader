@@ -3,6 +3,7 @@ Shader "MySRP/Blinn-Phong"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _BaseColor ("BaseColor", Color) = (1,1,1,1)
     }
     SubShader
     {
@@ -54,7 +55,7 @@ Shader "MySRP/Blinn-Phong"
 
             sampler2D _MainTex;
             sampler2D _ShadowMap;
-
+            float4 _BaseColor;
             float3 _LightColor;
             float3 _LightDir;
             float3 _PointLightColor;
@@ -82,7 +83,7 @@ Shader "MySRP/Blinn-Phong"
             float4 frag (FragShaderIn i) : SV_Target
             {
                 // sample the texture
-                float4 col = tex2D(_MainTex, i.uv);
+                float4 col = tex2D(_MainTex, i.uv) * _BaseColor;
                 float3 viewDir = normalize(_CameraPosition - i.worldPos);
                 float4 specularColor = float4(0,0,0,1);
                 float4 pointSpecularColor = float4(0,0,0,1);
@@ -102,12 +103,91 @@ Shader "MySRP/Blinn-Phong"
                 //float4 shadowLightSpacePos = mul(_VP, float4(i.worldPos,1));
                 //float4 shadowNdc = shadowLightSpacePos / shadowLightSpacePos.w;
                 float4 shadowNdc = i.shadowClipPos / i.shadowClipPos.w;
+                float clipW = i.shadowClipPos.w;
                 float2 shadowUV = float2((shadowNdc.x + 1)*0.5 ,1 - (shadowNdc.y + 1)*0.5);
-                float shadowDepth = shadowNdc.z * 0.5 + 0.5;
-                bool inShadow = shadowNdc.z > tex2D(_ShadowMap, shadowUV) + 0.01; 
 
-                col = col * 0.5  + specularColor + pointSpecularColor;
-                col *= !inShadow;
+                float dBlocker = tex2D(_ShadowMap, shadowUV);
+
+                // block search
+                float2 offSet = float2(1.0/1024, 1.0/1024);
+                int blockerSize = (1.0-dBlocker) * 20;
+                blockerSize = 1;
+                float w11 = 1;
+                float wOther = (1-w11)/8;
+                float3x3 wight = {
+                    {wOther, wOther, wOther},
+                    {wOther, w11   , wOther},
+                    {wOther, wOther, wOther}
+                };
+                int MAX_LOOP = 9;
+                blockerSize = clamp(blockerSize, 1, MAX_LOOP);
+                int2 blockSearchSize = int2(blockerSize, blockerSize);
+
+                
+                float2 blockSearchUV = shadowUV - offSet * (blockerSize/2);
+                float avgBlockDepth = 0.0;
+                int blockerNums = 0;
+
+                [unroll(MAX_LOOP)]
+                for(int i = 0; i < blockSearchSize.x; i++)
+                {
+                    [unroll(MAX_LOOP)]
+                    for(int j = 0; j < blockSearchSize.y; j++)
+                    {
+                        float blockerPointDepth = tex2D(_ShadowMap, blockSearchUV);
+                        bool isBlock = shadowNdc.z > blockerPointDepth + 0.005;
+                        if(isBlock)
+                        {
+                            avgBlockDepth += blockerPointDepth;
+                            blockerNums++;
+                        }
+                        blockSearchUV += float2(0, offSet.y);
+                    }
+                    blockSearchUV += float2(offSet.x, 0);
+                }
+
+                if(blockerNums > 0)
+                {
+                    avgBlockDepth /= blockerNums;
+                } 
+                else
+                {
+                    avgBlockDepth = 1.0;
+                }          
+
+
+                // 按照Texile做偏移；
+                
+                // filterSize 根据像素到阴影到距离
+                float lightW = 40;
+                int w = lightW * (shadowNdc.z - avgBlockDepth)/avgBlockDepth;
+                // w = 9;
+                w = clamp(w, 1, MAX_LOOP);
+                int2 filterSize = int2(w,w);
+                float2 filterUV = shadowUV - offSet * (w/2);
+                int inShadowSum = 0;
+
+                //float clipW = i.shadowClipPos.w;
+                [unroll(MAX_LOOP)]
+                for(int x = 0; x < filterSize.x; x++)
+                {
+                    [unroll(MAX_LOOP)]
+                    for(int j = 0; j < filterSize.y; j++)
+                    {
+                        bool inShadow = (shadowNdc.z > tex2D(_ShadowMap, filterUV) + 0.005)&&(clipW > 0);
+                        if(inShadow)
+                        {
+                            inShadowSum++;
+                        }   
+                        filterUV = filterUV + float2(0, offSet.y);
+                    };
+                    filterUV = filterUV + float2(offSet.x, 0);
+                };
+                // inShadowSum = 50;
+                float shadowAtten = 1.0 - (inShadowSum * 1.0) / (filterSize.x * filterSize.y);
+                col = col * 0.5  + (specularColor + pointSpecularColor);
+                col *= shadowAtten;
+                // col *= !inShadow;
                 return col;
                 //return shadowNdc.z;
             }

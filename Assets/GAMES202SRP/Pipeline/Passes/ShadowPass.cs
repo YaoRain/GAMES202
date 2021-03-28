@@ -6,13 +6,13 @@ namespace MySRP
     public class ShadowPass : RenderPass
     {
         CommandBuffer _ShadowCmd;
-        Material shadowMat;
+        public static Material shadowMat = new Material(Shader.Find("MySRP/ShadowCast"));
         public ShadowPass()
         {
             _ShadowCmd = new CommandBuffer();
             _ShadowCmd.name = "Shadow Cmd";
 
-            shadowMat = new Material(Shader.Find("MySRP/ShadowCast"));
+            
         }
 
         public override void Setup()
@@ -29,12 +29,12 @@ namespace MySRP
             Matrix4x4 _P = Matrix4x4.Frustum(-halfW, halfW, -halfH, halfH, near, 1000);
             Matrix4x4 _V = Matrix4x4.LookAt(
                 shadowLightTrans.position,
-                shadowLightTrans.position + Vector3.forward,
+                shadowLightTrans.position + shadowLightTrans.forward,
                 shadowLightTrans.up);
             _V[5] *= -1;
             // y方向的视口变换取反
             _V[12] *= -1;  _V[13] *= 1;
-            Debug.Log(_V);
+            // Debug.Log(_V);
             Matrix4x4 _VP = _P * _V ;
             _ShadowCmd.SetGlobalMatrix(PreCameraBuffer._VP, _VP);
             ExcuteBuffer(_ShadowCmd);
@@ -49,7 +49,6 @@ namespace MySRP
                 Matrix4x4 mMat = transTmp.localToWorldMatrix;
                 mMat[10] *= -1;
                 mMat[14] *= -1;
-                GlobalShaderProperties.SetPreObjBuffer(mMat);
                 _ShadowCmd.SetGlobalMatrix(PreObjBuffer._ObjToWorldMatrix, mMat);
                 _ShadowCmd.DrawMesh(mesh.mesh, transTmp.localToWorldMatrix, shadowMat, 0, 0);
             }
