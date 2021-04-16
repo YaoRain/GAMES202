@@ -8,12 +8,12 @@
       <File FileName="Assets/GAMES202SRP/Pipeline/Data/RenderData.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Renderer.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Passes/RenderPass.cs" />
-      <File FileName="Assets/GAMES202SRP/Pipeline/Passes/ShadowPass.cs" Line="34" Column="25" />
+      <File FileName="Assets/GAMES202SRP/Pipeline/Passes/ShadowPass.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Passes/OpaquePass.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/PipelineSetting.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Passes/SkyBoxPass.cs" />
       <File FileName="Assets/GAMES202SRP/Pipeline/Data/MainLight.cs" />
-      <File FileName="Assets/GAMES202SRP/Shaders/Blinn-Phong.shader" Line="169" Column="1" />
+      <File FileName="Assets/GAMES202SRP/Shaders/Blinn-Phong.shader" Line="187" Column="55" />
       <File FileName="Assets/GAMES202SRP/Shaders/Test.shader" />
       <File FileName="Assets/GAMES202SRP/Pipeline/SRPAsset.cs" Line="11" Column="16" NotebookId="1" />
       <File FileName="Assets/GAMES202SRP/Shaders/ShadowCast.shader" NotebookId="1" />
